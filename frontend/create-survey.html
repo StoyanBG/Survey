@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Survey</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        input, select, button, textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .optionsContainer input {
+            margin-bottom: 5px;
+        }
+        .back-btn { display: inline-block; margin: 10px; padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px; cursor: pointer; }
+        .back-btn:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Create a New Survey</h1>
+    <form id="createSurveyForm">
+        <label for="surveyTitle">Survey Title:</label>
+        <input type="text" id="surveyTitle" required>
+
+        <div id="questionsContainer"></div>
+
+        <button type="button" id="addQuestionBtn">Add Question</button>
+        <button type="submit">Submit Survey</button>
+        <div class="back-btn" onclick="goToHome()">Back to Home</div>
+    </form>
+
+    <script>
+        const questionsContainer = document.getElementById('questionsContainer');
+        const addQuestionBtn = document.getElementById('addQuestionBtn');
+        const form = document.getElementById('createSurveyForm');
+
+        addQuestionBtn.addEventListener('click', () => {
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('question');
+            questionDiv.innerHTML = `
+                <label>Question Text:</label>
+                <input type="text" class="questionText" required>
+                <label>Type:</label>
+                <select class="questionType" required>
+                    <option value="multiple_choice">Multiple Choice</option>
+                    <option value="checkbox">Checkbox</option>
+                    <option value="yes_no">Yes/No</option>
+                    <option value="free_text">Free Text</option>
+                </select>
+                <div class="optionsContainer"></div>
+                <button type="button" class="addOptionBtn">Add Option</button>
+            `;
+            questionDiv.querySelector('.addOptionBtn').addEventListener('click', () => {
+                const optionsContainer = questionDiv.querySelector('.optionsContainer');
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = 'Option Text';
+                optionsContainer.appendChild(input);
+            });
+            questionsContainer.appendChild(questionDiv);
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('surveyTitle').value;
+            const questions = Array.from(document.querySelectorAll('.question')).map(q => {
+                const text = q.querySelector('.questionText').value;
+                const type = q.querySelector('.questionType').value;
+                const options = Array.from(q.querySelectorAll('.optionsContainer input')).map(opt => opt.value);
+                return { text, type, options };
+            });
+
+            const response = await fetch('/surveys', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, questions }),
+            });
+
+            if (response.ok) {
+                alert('Survey created successfully!');
+                form.reset();
+                questionsContainer.innerHTML = '';
+            } else {
+                alert('Failed to create survey.');
+            }
+        });
+        function goToHome() {
+            window.location.href = '/';
+        }
+    </script>
+</body>
+</html>
