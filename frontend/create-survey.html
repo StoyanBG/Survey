@@ -69,17 +69,17 @@
             const questionDiv = document.createElement('div');
             questionDiv.classList.add('question');
             questionDiv.innerHTML = `
-                <label>Question Text:</label>
+                <label>Текст във съпроса:</label>
                 <input type="text" class="questionText" required>
-                <label>Type:</label>
+                <label>Тип:</label>
                 <select class="questionType" required>
-                    <option value="multiple_choice">Multiple Choice</option>
-                    <option value="checkbox">Checkbox</option>
-                    <option value="yes_no">Yes/No</option>
-                    <option value="free_text">Free Text</option>
+                    <option value="multiple_choice">Няколко избора</option>
+                    <option value="checkbox">Отметки</option>
+                    <option value="yes_no">Да/Не</option>
+                    <option value="free_text">Свободен текст</option>
                 </select>
                 <div class="optionsContainer"></div>
-                <button type="button" class="addOptionBtn">Add Option</button>
+                <button type="button" class="addOptionBtn">Добавете опция</button>
             `;
             questionDiv.querySelector('.addOptionBtn').addEventListener('click', () => {
                 const optionsContainer = questionDiv.querySelector('.optionsContainer');

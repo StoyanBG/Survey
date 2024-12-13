@@ -28,7 +28,7 @@ app.post('/surveys', async (req, res) => {
 
     try {
         const surveyId = await saveSurvey(title, questions);
-        res.status(201).json({ message: 'Survey created successfully', surveyId });
+        res.status(201).json({ message: 'Успешно създадена анкета', surveyId });
     } catch (error) {
         console.error('Error saving survey:', error);
         res.status(500).json({ error: 'Failed to save survey' });

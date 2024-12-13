@@ -58,9 +58,9 @@
     </style>
 </head>
 <body>
-    <h1>Answer a Survey</h1>
+    <h1>Отговорете на анкета</h1>
     <form id="answerSurveyForm"></form>
-    <div class="back-btn" onclick="goToHome()">Back to Home</div>
+    <div class="back-btn" onclick="goToHome()">Обратно към Главната страница</div>
     <script>
         const form = document.getElementById('answerSurveyForm');
 
@@ -82,8 +82,8 @@
                     div.innerHTML += `<textarea name="${question.id}" required></textarea>`;
                 } else if (question.question_type === 'yes_no') {
                     div.innerHTML += `
-                        <label><input type="radio" name="${question.id}" value="Yes"> Yes</label>
-                        <label><input type="radio" name="${question.id}" value="No"> No</label>
+                        <label><input type="radio" name="${question.id}" value="Yes"> Да</label>
+                        <label><input type="radio" name="${question.id}" value="No"> Не</label>
                     `;
                 } else {
                     question.options.forEach(opt => {
