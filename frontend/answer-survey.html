@@ -65,7 +65,7 @@
         const form = document.getElementById('answerSurveyForm');
 
         async function loadSurvey() {
-            const surveyId = prompt('Enter Survey ID:');
+            const surveyId = prompt('Въведете ID на анкетата:');
             const response = await fetch(`/surveys/${surveyId}`);
             const survey = await response.json();
 

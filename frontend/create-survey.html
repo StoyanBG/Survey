@@ -48,16 +48,16 @@
     </style>
 </head>
 <body>
-    <h1>Create a New Survey</h1>
+    <h1>Създайте нова анкета</h1>
     <form id="createSurveyForm">
-        <label for="surveyTitle">Survey Title:</label>
+        <label for="surveyTitle">Име на анкетата:</label>
         <input type="text" id="surveyTitle" required>
 
         <div id="questionsContainer"></div>
 
-        <button type="button" id="addQuestionBtn">Add Question</button>
-        <button type="submit">Submit Survey</button>
-        <div class="back-btn" onclick="goToHome()">Back to Home</div>
+        <button type="button" id="addQuestionBtn">Добавете въпрос</button>
+        <button type="submit">Публикувайте анкетата</button>
+        <div class="back-btn" onclick="goToHome()">Обратно към главната страница</div>
     </form>
 
     <script>
@@ -108,11 +108,11 @@
             });
 
             if (response.ok) {
-                alert('Survey created successfully!');
+                alert('Анкетата е създадена успоешно!');
                 form.reset();
                 questionsContainer.innerHTML = '';
             } else {
-                alert('Failed to create survey.');
+                alert('Неуспешно създаване на анкетата.');
             }
         });
         function goToHome() {
