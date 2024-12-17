@@ -43,7 +43,7 @@ app.get('/surveys/:id', async (req, res) => {
         const survey = await getSurvey(id);
 
         if (!survey) {
-            return res.status(404).json({ error: 'Survey not found' });
+            return res.status(404).json({ error: 'Неуспешно намиране на анкетата' });
         }
 
         res.json(survey);
